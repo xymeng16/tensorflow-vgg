@@ -29,7 +29,7 @@ def build_model(input_data_tensor, input_label_tensor):
     logits = vgg.build(images, n_classes=num_classes, training=True)
     probs = tf.nn.softmax(logits)
     loss_classify = L.loss(logits, tf.one_hot(input_label_tensor, num_classes))
-    loss_weight_decay = tf.reduce_sum(tf.pack([tf.nn.l2_loss(i) for i in tf.get_collection('variables')]))
+    loss_weight_decay = tf.reduce_sum(tf.stack([tf.nn.l2_loss(i) for i in tf.get_collection('variables')]))
     loss = loss_classify + weight_decay*loss_weight_decay
     error_top5 = L.topK_error(probs, input_label_tensor, K=5)
     error_top1 = L.topK_error(probs, input_label_tensor, K=1)
