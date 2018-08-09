@@ -43,7 +43,7 @@ def iterative_reduce(ops, inputs, args, batch_size, fn):
     results = [fn(r) for r in zip(*results)]
     return results
 
-class StatLogger:
+class MetricsLogger:
     """
     file writer to record various statistics
     """
